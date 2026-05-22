@@ -43,7 +43,7 @@ npm install -g ciraft
 npx ciraft
 
 # brew
-brew install ciraft
+brew install https://raw.githubusercontent.com/DhanushNehru/ciraft/main/Formula/ciraft.rb
 ```
 
 ### Usage
