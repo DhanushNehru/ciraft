@@ -1,16 +1,15 @@
 {
-  "name": "pipeforge",
+  "name": "ciraft",
   "version": "1.0.0",
   "description": "Generate production-grade CI/CD pipelines in seconds. Scans your repo, detects your stack, and outputs battle-tested configs.",
   "type": "module",
   "main": "src/index.js",
   "bin": {
-    "pipeforge": "./bin/pipeforge.js"
+    "ciraft": "./bin/ciraft.js"
   },
   "scripts": {
-    "start": "node bin/pipeforge.js",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "lint": "eslint src/ bin/"
+    "start": "node bin/ciraft.js",
+    "test": "node tests/detector.test.js"
   },
   "keywords": [
     "ci",

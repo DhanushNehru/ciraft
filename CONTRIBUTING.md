@@ -1,6 +1,6 @@
-# 🤝 Contributing to pipeforge
+# 🤝 Contributing to ciraft
 
-First off, **thank you** for considering contributing to pipeforge! Every contribution matters — whether it's fixing a typo, adding support for a new language, or improving the docs.
+First off, **thank you** for considering contributing to ciraft! Every contribution matters — whether it's fixing a typo, adding support for a new language, or improving the docs.
 
 ## Table of Contents
 
@@ -28,13 +28,13 @@ First off, **thank you** for considering contributing to pipeforge! Every contri
 
 1. **Fork the repository**
 
-   Click the "Fork" button at the top of [https://github.com/DhanushNehru/pipeforge](https://github.com/DhanushNehru/pipeforge).
+   Click the "Fork" button at the top of [https://github.com/DhanushNehru/ciraft](https://github.com/DhanushNehru/ciraft).
 
 2. **Clone your fork**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/pipeforge.git
-   cd pipeforge
+   git clone https://github.com/YOUR_USERNAME/ciraft.git
+   cd ciraft
    ```
 
 3. **Install dependencies**
@@ -52,7 +52,7 @@ First off, **thank you** for considering contributing to pipeforge! Every contri
 5. **Run the project locally**
 
    ```bash
-   # Run pipeforge from source
+   # Run ciraft from source
    npm run dev
 
    # Run tests
@@ -72,7 +72,7 @@ First off, **thank you** for considering contributing to pipeforge! Every contri
 ## Project Structure
 
 ```
-pipeforge/
+ciraft/
 ├── src/
 │   ├── index.ts              # CLI entry point
 │   ├── cli/
@@ -427,9 +427,9 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 New to open source? We've got you covered! Look for issues tagged:
 
-- 🏷️ [`good first issue`](https://github.com/DhanushNehru/pipeforge/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) — Perfect for beginners
-- 🏷️ [`hacktoberfest`](https://github.com/DhanushNehru/pipeforge/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) — Eligible for Hacktoberfest
-- 🏷️ [`help wanted`](https://github.com/DhanushNehru/pipeforge/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) — We'd love your help
+- 🏷️ [`good first issue`](https://github.com/DhanushNehru/ciraft/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) — Perfect for beginners
+- 🏷️ [`hacktoberfest`](https://github.com/DhanushNehru/ciraft/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) — Eligible for Hacktoberfest
+- 🏷️ [`help wanted`](https://github.com/DhanushNehru/ciraft/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) — We'd love your help
 
 Most language support issues are **great first contributions** because:
 - The pattern is well-established (copy an existing detector/generator)
@@ -441,11 +441,11 @@ Most language support issues are **great first contributions** because:
 
 ## Need Help?
 
-- 💬 [Open a discussion](https://github.com/DhanushNehru/pipeforge/discussions)
-- 🐛 [Report a bug](https://github.com/DhanushNehru/pipeforge/issues/new?template=bug_report.yml)
-- 💡 [Request a feature](https://github.com/DhanushNehru/pipeforge/issues/new?template=feature_request.yml)
+- 💬 [Open a discussion](https://github.com/DhanushNehru/ciraft/discussions)
+- 🐛 [Report a bug](https://github.com/DhanushNehru/ciraft/issues/new?template=bug_report.yml)
+- 💡 [Request a feature](https://github.com/DhanushNehru/ciraft/issues/new?template=feature_request.yml)
 - 🐦 [Reach out on Twitter](https://twitter.com/Dhanush_Nehru)
 
 ---
 
-**Thank you for helping make pipeforge better! 🔥**
+**Thank you for helping make ciraft better! 🔥**

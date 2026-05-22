@@ -11,7 +11,7 @@ import ora from 'ora';
 let activeSpinner = null;
 
 /**
- * Display the pipeforge ASCII banner.
+ * Display the ciraft ASCII banner.
  */
 export function banner() {
   const logo = chalk.bold.cyan(`
