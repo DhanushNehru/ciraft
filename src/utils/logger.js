@@ -17,7 +17,7 @@ export function banner() {
   const logo = chalk.bold.cyan(`
   ╔═══════════════════════════════════════════╗
   ║                                           ║
-  ║   🔧  ${chalk.white.bold('P I P E F O R G E')}                  ║
+  ║   🔧  ${chalk.white.bold('C I R A F T')}                        ║
   ║                                           ║
   ║   ${chalk.dim('CI/CD Pipeline Generator')}                ║
   ║   ${chalk.dim('v1.0.0')}                                  ║
