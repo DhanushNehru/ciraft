@@ -1,0 +1,40 @@
+{
+  "name": "pipeforge",
+  "version": "1.0.0",
+  "description": "Generate production-grade CI/CD pipelines in seconds. Scans your repo, detects your stack, and outputs battle-tested configs.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "pipeforge": "./bin/pipeforge.js"
+  },
+  "scripts": {
+    "start": "node bin/pipeforge.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "lint": "eslint src/ bin/"
+  },
+  "keywords": [
+    "ci",
+    "cd",
+    "pipeline",
+    "github-actions",
+    "gitlab-ci",
+    "devops",
+    "automation",
+    "workflow",
+    "generator"
+  ],
+  "author": "Dhanush Nehru",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "glob": "^10.4.5",
+    "handlebars": "^4.7.8",
+    "inquirer": "^9.3.7",
+    "ora": "^8.1.1",
+    "yaml": "^2.6.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
