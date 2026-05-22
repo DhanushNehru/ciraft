@@ -1,0 +1,39 @@
+name: "🚀 Request Language/Framework Support"
+description: "Suggest a new language or framework for ciraft to auto-detect and generate pipelines for"
+title: "[SUPPORT]: Add support for "
+labels: ["new-stack", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We want to expand ciraft to support as many languages and frameworks as possible. Let us know what you want to see!
+  - type: input
+    id: stack_name
+    attributes:
+      label: "Language/Framework name"
+      placeholder: "e.g. PHP (Laravel), Java (Spring Boot), Ruby on Rails"
+    validations:
+      required: true
+  - type: textarea
+    id: detection_criteria
+    attributes:
+      label: "How to detect this stack?"
+      description: "What files or directory structures indicate this stack is present?"
+      placeholder: "e.g. Look for 'composer.json' for PHP/Laravel, 'pom.xml' or 'build.gradle' for Java."
+    validations:
+      required: true
+  - type: textarea
+    id: default_workflow
+    attributes:
+      label: "What does a production-ready CI/CD workflow look like for this stack?"
+      description: "Please share a sample YAML workflow containing linting, testing, caching, and building if possible."
+      placeholder: "e.g. \nname: CI\non: [push]\njobs: ..."
+    validations:
+      required: true
+  - type: checkboxes
+    id: contribute_check
+    attributes:
+      label: "Would you like to contribute this?"
+      options:
+        - label: "Yes! I can submit a PR to implement support for this stack."
+          required: false
