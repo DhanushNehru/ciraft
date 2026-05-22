@@ -1,6 +1,6 @@
 /**
  * @module index
- * @description Main orchestrator for pipeforge. Ties together the detect → generate
+ * @description Main orchestrator for ciraft. Ties together the detect → generate
  * flow with interactive prompts, dry-run support, and polished output.
  */
 
@@ -31,7 +31,7 @@ export async function run(cliOptions = {}, cwd = process.cwd()) {
 
     if (detection.languages.length === 0) {
       log.error('Could not detect any project stack.');
-      log.info('Make sure you run pipeforge from your project root directory.');
+      log.info('Make sure you run ciraft from your project root directory.');
       process.exitCode = 1;
       return;
     }
@@ -72,14 +72,14 @@ export async function run(cliOptions = {}, cwd = process.cwd()) {
       log.info(`Next steps:`);
       log.info(`  1. Review the generated file: ${chalk.cyan(result.outputPath)}`);
       log.info(`  2. Commit and push to trigger your pipeline`);
-      log.info(`  3. Run ${chalk.cyan('pipeforge audit')} to check for best practices`);
+      log.info(`  3. Run ${chalk.cyan('ciraft audit')} to check for best practices`);
       log.blank();
     }
   } catch (err) {
     log.failSpinner();
     log.error(err.message);
 
-    if (process.env.DEBUG || process.env.PIPEFORGE_DEBUG) {
+    if (process.env.DEBUG || process.env.CIRAFT_DEBUG) {
       console.error(err);
     }
 
@@ -175,7 +175,7 @@ export async function runAudit(file, cliOptions = {}, cwd = process.cwd()) {
 
     if (reports.length === 0) {
       log.warn('No workflow files to audit.');
-      log.info('Run `pipeforge` first to generate a workflow, then audit it.');
+      log.info('Run `ciraft` first to generate a workflow, then audit it.');
       return;
     }
 
@@ -204,7 +204,7 @@ export async function runAudit(file, cliOptions = {}, cwd = process.cwd()) {
 /**
  * Prompt the user for confirmation and customization in interactive mode.
  * @param {import('./detector.js').DetectionResult} detection - Detection results.
- * @param {import('./utils/config.js').PipeforgeConfig} config - Current config.
+ * @param {import('./utils/config.js').CiraftConfig} config - Current config.
  * @returns {Promise<boolean>} Whether to proceed with generation.
  */
 async function promptConfirmation(detection, config) {

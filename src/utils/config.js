@@ -1,7 +1,7 @@
 /**
  * @module config
- * @description Loads user configuration from .pipeforgerc (JSON/YAML) or
- * pipeforge.config.js. Merges user overrides with sensible defaults.
+ * @description Loads user configuration from .ciraftrc (JSON/YAML) or
+ * ciraft.config.js. Merges user overrides with sensible defaults.
  */
 
 import { readFile } from 'node:fs/promises';
@@ -13,7 +13,7 @@ import log from './logger.js';
 
 /**
  * Default configuration values.
- * @type {PipeforgeConfig}
+ * @type {CiraftConfig}
  */
 const DEFAULTS = {
   target: 'github-actions',
@@ -33,7 +33,7 @@ const DEFAULTS = {
 };
 
 /**
- * @typedef {Object} PipeforgeConfig
+ * @typedef {Object} CiraftConfig
  * @property {'github-actions'|'gitlab-ci'} target - CI platform target.
  * @property {string|null} output - Output file path.
  * @property {boolean} interactive - Whether to prompt the user.
@@ -52,12 +52,12 @@ const DEFAULTS = {
 
 /** Ordered list of config file names to search for. */
 const CONFIG_FILES = [
-  '.pipeforgerc',
-  '.pipeforgerc.json',
-  '.pipeforgerc.yaml',
-  '.pipeforgerc.yml',
-  'pipeforge.config.js',
-  'pipeforge.config.mjs',
+  '.ciraftrc',
+  '.ciraftrc.json',
+  '.ciraftrc.yaml',
+  '.ciraftrc.yml',
+  'ciraft.config.js',
+  'ciraft.config.mjs',
 ];
 
 /**
@@ -105,7 +105,7 @@ async function loadJsConfig(filePath) {
 /**
  * Search for and load user configuration from the project root.
  * @param {string} [cwd=process.cwd()] - Directory to search in.
- * @returns {Promise<PipeforgeConfig>} Merged configuration.
+ * @returns {Promise<CiraftConfig>} Merged configuration.
  */
 export async function loadConfig(cwd = process.cwd()) {
   let userConfig = {};
@@ -138,9 +138,9 @@ export async function loadConfig(cwd = process.cwd()) {
 
 /**
  * Merge CLI options into the loaded config. CLI flags take precedence.
- * @param {PipeforgeConfig} config - Loaded config.
+ * @param {CiraftConfig} config - Loaded config.
  * @param {Object} cliOptions - Options parsed from commander.
- * @returns {PipeforgeConfig} Final merged config.
+ * @returns {CiraftConfig} Final merged config.
  */
 export function mergeCliOptions(config, cliOptions = {}) {
   const merged = { ...config };

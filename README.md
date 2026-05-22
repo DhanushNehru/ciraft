@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/DhanushNehru/pipeforge/main/assets/logo.png" alt="pipeforge logo" width="200" />
-</p>
-
-<h1 align="center">🔥 pipeforge</h1>
+<h1 align="center">🔥 ciraft</h1>
 
 <p align="center">
   <strong>Auto-generate CI/CD pipelines from your codebase in seconds.</strong><br/>
@@ -10,30 +6,30 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/pipeforge"><img src="https://img.shields.io/npm/v/pipeforge?style=flat-square&color=cb3837" alt="npm version" /></a>
-  <a href="https://github.com/DhanushNehru/pipeforge/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DhanushNehru/pipeforge?style=flat-square&color=blue" alt="license" /></a>
-  <a href="https://github.com/DhanushNehru/pipeforge/stargazers"><img src="https://img.shields.io/github/stars/DhanushNehru/pipeforge?style=flat-square&color=yellow" alt="stars" /></a>
-  <a href="https://github.com/DhanushNehru/pipeforge/issues"><img src="https://img.shields.io/github/issues/DhanushNehru/pipeforge?style=flat-square" alt="issues" /></a>
-  <a href="https://github.com/DhanushNehru/pipeforge/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs Welcome" /></a>
-  <a href="https://github.com/DhanushNehru/pipeforge"><img src="https://img.shields.io/badge/Hacktoberfest-friendly-orange?style=flat-square&logo=hacktoberfest&logoColor=white" alt="Hacktoberfest" /></a>
-  <a href="https://www.npmjs.com/package/pipeforge"><img src="https://img.shields.io/npm/dm/pipeforge?style=flat-square&color=blue" alt="downloads" /></a>
+  <a href="https://www.npmjs.com/package/ciraft"><img src="https://img.shields.io/npm/v/ciraft?style=flat-square&color=cb3837" alt="npm version" /></a>
+  <a href="https://github.com/DhanushNehru/ciraft/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DhanushNehru/ciraft?style=flat-square&color=blue" alt="license" /></a>
+  <a href="https://github.com/DhanushNehru/ciraft/stargazers"><img src="https://img.shields.io/github/stars/DhanushNehru/ciraft?style=flat-square&color=yellow" alt="stars" /></a>
+  <a href="https://github.com/DhanushNehru/ciraft/issues"><img src="https://img.shields.io/github/issues/DhanushNehru/ciraft?style=flat-square" alt="issues" /></a>
+  <a href="https://github.com/DhanushNehru/ciraft/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs Welcome" /></a>
+  <a href="https://github.com/DhanushNehru/ciraft"><img src="https://img.shields.io/badge/Hacktoberfest-friendly-orange?style=flat-square&logo=hacktoberfest&logoColor=white" alt="Hacktoberfest" /></a>
+  <a href="https://www.npmjs.com/package/ciraft"><img src="https://img.shields.io/npm/dm/ciraft?style=flat-square&color=blue" alt="downloads" /></a>
 </p>
 
 <p align="center">
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-features">Features</a> •
   <a href="#-supported-stacks">Supported Stacks</a> •
-  <a href="#-why-pipeforge">Why pipeforge?</a> •
+  <a href="#-why-ciraft">Why ciraft?</a> •
   <a href="#-contributing">Contributing</a>
 </p>
 
 ---
 
-## 🤔 What is pipeforge?
+## 🤔 What is ciraft?
 
-**pipeforge** scans your project, detects the languages, frameworks, and tools you're using, and instantly generates a production-ready CI/CD pipeline — no YAML wrangling required.
+**ciraft** scans your project, detects the languages, frameworks, and tools you're using, and instantly generates a production-ready CI/CD pipeline — no YAML wrangling required.
 
-Stop spending hours copying pipeline configs from Stack Overflow. Let pipeforge do it in seconds.
+Stop spending hours copying pipeline configs from Stack Overflow. Let ciraft do it in seconds.
 
 ## ⚡ Quick Start
 
@@ -41,39 +37,39 @@ Stop spending hours copying pipeline configs from Stack Overflow. Let pipeforge 
 
 ```bash
 # npm
-npm install -g pipeforge
+npm install -g ciraft
 
 # npx (no install needed)
-npx pipeforge
+npx ciraft
 
 # brew
-brew install pipeforge
+brew install ciraft
 ```
 
 ### Usage
 
 ```bash
 # Navigate to your project and run
-pipeforge
+ciraft
 
 # Or specify a directory
-pipeforge --path ./my-project
+ciraft --path ./my-project
 
 # Choose a specific CI provider
-pipeforge --provider github
+ciraft --provider github
 
 # Dry run — preview without writing files
-pipeforge --dry-run
+ciraft --dry-run
 ```
 
 ### 🎬 Demo
 
-Run `pipeforge` in a Node.js + Docker project and watch the magic happen:
+Run `ciraft` in a Node.js + Docker project and watch the magic happen:
 
 ```
-$ pipeforge
+$ ciraft
 
-  🔥 pipeforge v1.0.0
+  🔥 ciraft v1.0.0
   ─────────────────────────────────────────
 
   📂 Scanning project: ./my-fullstack-app
@@ -159,11 +155,11 @@ $ pipeforge
 
 > 🔜 = Coming soon! Want to help? Check out our [Contributing Guide](CONTRIBUTING.md).
 
-## 🏆 Why pipeforge?
+## 🏆 Why ciraft?
 
 ### Comparison
 
-| Feature | pipeforge | Manual Setup | Starter Templates |
+| Feature | ciraft | Manual Setup | Starter Templates |
 |---------|:---------:|:------------:|:-----------------:|
 | Auto-detects your stack | ✅ | ❌ | ❌ |
 | Production-ready defaults | ✅ | ⚠️ Depends | ⚠️ Often outdated |
@@ -175,7 +171,7 @@ $ pipeforge
 | Keeps up with CI updates | ✅ | ❌ | ❌ |
 | Open source | ✅ | N/A | ⚠️ Sometimes |
 
-### Before pipeforge 😩
+### Before ciraft 😩
 
 ```yaml
 # *googles "github actions node.js"*
@@ -187,16 +183,16 @@ $ pipeforge
 # *starts over*
 ```
 
-### After pipeforge 🚀
+### After ciraft 🚀
 
 ```bash
-$ npx pipeforge
+$ npx ciraft
 # Done. Go ship your code.
 ```
 
 ## 🔧 Configuration
 
-pipeforge works with zero configuration, but you can customize it with a `.pipeforgerc.json` file:
+ciraft works with zero configuration, but you can customize it with a `.ciraftrc.json` file:
 
 ```json
 {
@@ -222,25 +218,25 @@ pipeforge works with zero configuration, but you can customize it with a `.pipef
 
 ## 🤝 Contributing
 
-We **love** contributions! pipeforge is designed to be easy to contribute to, especially for adding new language and framework support.
+We **love** contributions! ciraft is designed to be easy to contribute to, especially for adding new language and framework support.
 
 👉 **[Read the Contributing Guide →](CONTRIBUTING.md)**
 
 ### Quick Ways to Contribute
 
 - 🌐 **Add a new language** — [See how →](CONTRIBUTING.md#adding-support-for-a-new-language)
-- 🐛 **Report a bug** — [Open an issue →](https://github.com/DhanushNehru/pipeforge/issues/new?template=bug_report.yml)
-- 💡 **Request a feature** — [Open an issue →](https://github.com/DhanushNehru/pipeforge/issues/new?template=feature_request.yml)
+- 🐛 **Report a bug** — [Open an issue →](https://github.com/DhanushNehru/ciraft/issues/new?template=bug_report.yml)
+- 💡 **Request a feature** — [Open an issue →](https://github.com/DhanushNehru/ciraft/issues/new?template=feature_request.yml)
 - 📖 **Improve docs** — PRs for documentation are always welcome!
 - ⭐ **Star the repo** — It helps more than you think!
 
 ### 🎃 Hacktoberfest
 
-pipeforge is **Hacktoberfest friendly**! Look for issues labeled [`hacktoberfest`](https://github.com/DhanushNehru/pipeforge/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) and [`good first issue`](https://github.com/DhanushNehru/pipeforge/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+ciraft is **Hacktoberfest friendly**! Look for issues labeled [`hacktoberfest`](https://github.com/DhanushNehru/ciraft/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) and [`good first issue`](https://github.com/DhanushNehru/ciraft/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 ## 💖 Sponsors
 
-pipeforge is free and open source. If it saves you time, consider supporting the project:
+ciraft is free and open source. If it saves you time, consider supporting the project:
 
 <p align="center">
   <a href="https://github.com/sponsors/DhanushNehru">
@@ -255,8 +251,8 @@ pipeforge is free and open source. If it saves you time, consider supporting the
 ## 📊 Star History
 
 <p align="center">
-  <a href="https://star-history.com/#DhanushNehru/pipeforge&Date">
-    <img src="https://api.star-history.com/svg?repos=DhanushNehru/pipeforge&type=Date" alt="Star History Chart" width="600" />
+  <a href="https://star-history.com/#DhanushNehru/ciraft&Date">
+    <img src="https://api.star-history.com/svg?repos=DhanushNehru/ciraft&type=Date" alt="Star History Chart" width="600" />
   </a>
 </p>
 
@@ -283,5 +279,5 @@ pipeforge is free and open source. If it saves you time, consider supporting the
 </p>
 
 <p align="center">
-  If pipeforge helped you, give it a ⭐ — it means a lot!
+  If ciraft helped you, give it a ⭐ — it means a lot!
 </p>

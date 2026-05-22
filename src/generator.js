@@ -166,7 +166,7 @@ function getCacheKey(pm) {
 /**
  * Determine which template(s) to use based on detection results.
  * @param {import('./detector.js').DetectionResult} detection - Detection results.
- * @param {import('./utils/config.js').PipeforgeConfig} config - User config.
+ * @param {import('./utils/config.js').CiraftConfig} config - User config.
  * @returns {string} Template name (without extension).
  */
 function resolveTemplateName(detection, config) {
@@ -196,7 +196,7 @@ function resolveTemplateName(detection, config) {
 /**
  * Build the template context from detection results and config.
  * @param {import('./detector.js').DetectionResult} detection - Detection results.
- * @param {import('./utils/config.js').PipeforgeConfig} config - User config.
+ * @param {import('./utils/config.js').CiraftConfig} config - User config.
  * @returns {Object} Template context variables.
  */
 function buildContext(detection, config) {
@@ -694,7 +694,7 @@ docker-build:
 /**
  * Generate the CI/CD pipeline file.
  * @param {import('./detector.js').DetectionResult} detection - Detection results.
- * @param {import('./utils/config.js').PipeforgeConfig} config - Merged configuration.
+ * @param {import('./utils/config.js').CiraftConfig} config - Merged configuration.
  * @returns {Promise<{content: string, outputPath: string}>} Generated content and output path.
  */
 export async function generate(detection, config) {

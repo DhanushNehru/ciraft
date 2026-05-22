@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @file pipeforge CLI entry point
+ * @file ciraft CLI entry point
  * @description Parses command-line arguments and dispatches to the appropriate
  * subcommand: detect, generate, audit, or the default full flow.
  */
@@ -38,7 +38,7 @@ async function main() {
   const program = new Command();
 
   program
-    .name('pipeforge')
+    .name('ciraft')
     .description('Generate production-grade CI/CD pipelines in seconds')
     .version(version, '-v, --version')
     .option('--dry-run', 'Preview output without writing files', false)
