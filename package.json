@@ -7,6 +7,10 @@
   "bin": {
     "ciraft": "./bin/ciraft.js"
   },
+  "files": [
+    "bin",
+    "src"
+  ],
   "scripts": {
     "start": "node bin/ciraft.js",
     "test": "node tests/detector.test.js"

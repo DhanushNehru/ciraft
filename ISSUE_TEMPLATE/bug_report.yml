@@ -1,0 +1,61 @@
+name: "🐛 Bug Report"
+description: "Report a bug or incorrect pipeline generation to help us improve ciraft"
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe the bug"
+      description: "A clear and concise description of what the bug is."
+      placeholder: "e.g. CLI crashes when running in a workspace with empty folders..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "To Reproduce"
+      description: "Steps to reproduce the behavior."
+      placeholder: |
+        1. Go to '...'
+        2. Run CLI command '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: codebase_info
+    attributes:
+      label: "Codebase Info (if applicable)"
+      description: "What did ciraft detect? What did your project structure look like? (e.g. package.json, main.go, etc.)"
+      placeholder: "e.g. Node.js project using pnpm with a Dockerfile"
+    validations:
+      required: false
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "A clear and concise description of what you expected to happen."
+      placeholder: "e.g. A valid .github/workflows/ci.yml with pnpm caching should be generated."
+    validations:
+      required: true
+  - type: input
+    id: env_info
+    attributes:
+      label: "Environment Information"
+      description: "OS version, Node version, ciraft version"
+      placeholder: "e.g. macOS 14.2, Node.js v20.10.0, ciraft v1.0.0"
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklists
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched the existing issues to make sure this bug hasn't been reported yet."
+          required: true
+        - label: "I am using the latest version of ciraft."
+          required: true

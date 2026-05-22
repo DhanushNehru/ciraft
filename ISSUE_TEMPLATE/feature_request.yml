@@ -1,0 +1,46 @@
+name: "💡 Feature Request"
+description: "Suggest a new feature, capability, or CI provider support for ciraft"
+title: "[FEATURE]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make ciraft better? Tell us about it!
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Is your feature request related to a problem?"
+      description: "A clear and concise description of what the problem is. (e.g. I am frustrated when...)"
+      placeholder: "e.g. I want to generate GitLab CI configurations, but currently only GitHub Actions is supported."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Describe the solution you'd like"
+      description: "A clear and concise description of what you want to happen."
+      placeholder: "e.g. Add a `--provider gitlab` flag that generates a `.gitlab-ci.yml` file..."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Describe alternatives you've considered"
+      description: "A clear and concise description of any alternative solutions or features you've considered."
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "Add any other context, mockup screenshots, or ideas here."
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched the existing issues to see if this feature has already been requested."
+          required: true

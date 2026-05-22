@@ -273,9 +273,6 @@ ciraft is free and open source. If it saves you time, consider supporting the pr
   <a href="https://twitter.com/Dhanush_Nehru">
     <img src="https://img.shields.io/badge/Twitter-@Dhanush__Nehru-1DA1F2?style=flat-square&logo=twitter&logoColor=white" alt="Twitter" />
   </a>
-  <a href="https://www.linkedin.com/in/dhanush-nehru/">
-    <img src="https://img.shields.io/badge/LinkedIn-Dhanush_Nehru-0A66C2?style=flat-square&logo=linkedin" alt="LinkedIn" />
-  </a>
 </p>
 
 <p align="center">
