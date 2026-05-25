@@ -83,6 +83,7 @@ function getInstallCommand(pm) {
     flit: 'flit install',
     cargo: 'cargo build',
     go: 'go mod download',
+    swift: 'swift package resolve',
   };
   return commands[pm] || 'npm ci';
 }
@@ -105,6 +106,7 @@ function getTestCommand(pm, lang) {
     pdm: 'pdm run pytest',
     cargo: 'cargo test',
     go: 'go test ./...',
+    swift: 'swift test',
   };
   return commands[pm] || 'npm test';
 }
@@ -125,6 +127,7 @@ function getLintCommand(pm) {
     poetry: 'poetry run ruff check .',
     cargo: 'cargo clippy -- -D warnings',
     go: 'golangci-lint run',
+    swift: 'swiftlint',
   };
   return commands[pm] || 'npm run lint';
 }
@@ -142,6 +145,7 @@ function getBuildCommand(pm) {
     bun: 'bun run build',
     cargo: 'cargo build --release',
     go: 'go build ./...',
+    swift: 'swift build',
   };
   return commands[pm] || '';
 }
@@ -182,6 +186,10 @@ function resolveTemplateName(detection, config) {
   // Single language
   const lang = languages[0]?.toLowerCase().replace('.', '') || 'node';
 
+  if (lang === 'swift') {
+    return target === 'github-actions' ? 'github-actions/swift' : `${prefix}-swift`;
+  }
+
   const templateMap = {
     'node.js': `${prefix}-node`,
     'nodejs': `${prefix}-node`,
@@ -217,6 +225,8 @@ function buildContext(detection, config) {
     goVersion: detection.goVersion || config.goVersion,
     rustEdition: detection.rustEdition || 'stable',
     rustVersion: config.rustVersion,
+    swiftVersion: config.swiftVersion,
+    xcodeVersion: config.xcodeVersion,
 
     // Feature flags
     hasDocker: detection.hasDocker,
@@ -248,6 +258,12 @@ function buildContext(detection, config) {
     // Rust-specific
     rustWorkspace: detection.meta?.rustWorkspace || false,
 
+    // Swift-specific
+    swiftHasPackage: detection.meta?.swift?.hasPackageSwift || false,
+    xcodeProject: detection.meta?.swift?.xcodeProjects?.[0] || '',
+    xcodeWorkspace: detection.meta?.swift?.xcodeWorkspaces?.[0] || '',
+    xcodeScheme: detection.meta?.swift?.xcodeScheme || '',
+
     // Docker-specific
     dockerfileStages: detection.meta?.dockerfileStages || [],
 
@@ -256,6 +272,7 @@ function buildContext(detection, config) {
     hasPython: detection.languages.includes('Python'),
     hasGo: detection.languages.includes('Go'),
     hasRust: detection.languages.includes('Rust'),
+    hasSwift: detection.languages.includes('Swift'),
   };
 }
 
@@ -266,9 +283,13 @@ function buildContext(detection, config) {
  * @returns {Promise<Handlebars.TemplateDelegate>} Compiled template.
  */
 async function loadTemplate(templateName) {
-  const templatePath = join(TEMPLATES_DIR, `${templateName}.hbs`);
+  const templatePaths = [
+    join(TEMPLATES_DIR, `${templateName}.hbs`),
+    join(TEMPLATES_DIR, `${templateName}.yml.hbs`),
+  ];
+  const templatePath = templatePaths.find((path) => existsSync(path));
 
-  if (existsSync(templatePath)) {
+  if (templatePath) {
     const content = await readFile(templatePath, 'utf-8');
     return Handlebars.compile(content, { noEscape: true });
   }

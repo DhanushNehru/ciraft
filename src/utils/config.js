@@ -25,6 +25,8 @@ const DEFAULTS = {
   pythonVersion: '3.12',
   goVersion: '1.22',
   rustVersion: 'stable',
+  swiftVersion: '6.0',
+  xcodeVersion: 'latest-stable',
   enableCache: true,
   enableSecurity: true,
   enableConcurrency: true,
@@ -43,6 +45,8 @@ const DEFAULTS = {
  * @property {string} pythonVersion - Default Python version.
  * @property {string} goVersion - Default Go version.
  * @property {string} rustVersion - Default Rust toolchain.
+ * @property {string} swiftVersion - Default Swift version.
+ * @property {string} xcodeVersion - Default Xcode version.
  * @property {boolean} enableCache - Enable dependency caching.
  * @property {boolean} enableSecurity - Enable security scanning steps.
  * @property {boolean} enableConcurrency - Enable concurrency groups.

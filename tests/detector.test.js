@@ -2,6 +2,7 @@ import assert from 'node:assert';
 import fs from 'node:fs';
 import path from 'node:path';
 import { detect } from '../src/detector.js';
+import { generate } from '../src/generator.js';
 
 async function runTests() {
   const tempDir = path.join(process.cwd(), 'temp-test-project');
@@ -58,6 +59,62 @@ async function runTests() {
     assert.ok(result2.frameworks.includes('Django'));
     assert.strictEqual(result2.hasTests, true);
     console.log('✓ detect Python project passed');
+
+    console.log('Running test: detect Swift package project');
+    fs.rmSync(tempDir, { recursive: true, force: true });
+    fs.mkdirSync(path.join(tempDir, 'Tests', 'SampleTests'), { recursive: true });
+
+    fs.writeFileSync(
+      path.join(tempDir, 'Package.swift'),
+      `// swift-tools-version: 6.0
+import PackageDescription
+
+let package = Package(
+    name: "Sample",
+    products: [.library(name: "Sample", targets: ["Sample"])],
+    targets: [
+        .target(name: "Sample"),
+        .testTarget(name: "SampleTests", dependencies: ["Sample"])
+    ]
+)
+`,
+      'utf8'
+    );
+    fs.writeFileSync(path.join(tempDir, 'Tests', 'SampleTests', 'SampleTests.swift'), '', 'utf8');
+
+    const result3 = await detect(tempDir);
+    assert.ok(result3.languages.includes('Swift'));
+    assert.strictEqual(result3.packageManager, 'swift');
+    assert.ok(result3.frameworks.includes('Swift Package Manager'));
+    assert.strictEqual(result3.hasTests, true);
+    assert.strictEqual(result3.meta.swift.hasPackageSwift, true);
+
+    const generated = await generate(result3, {
+      target: 'github-actions',
+      enableCache: true,
+      enableSecurity: true,
+      enableConcurrency: true,
+      timeout: 30,
+      branches: ['main'],
+      swiftVersion: '6.0',
+      xcodeVersion: 'latest-stable',
+    });
+
+    assert.strictEqual(generated.templateUsed, 'github-actions/swift');
+    assert.match(generated.content, /swift test/);
+    console.log('✓ detect Swift package project passed');
+
+    console.log('Running test: detect Xcode project');
+    fs.rmSync(tempDir, { recursive: true, force: true });
+    fs.mkdirSync(path.join(tempDir, 'SampleApp.xcodeproj'), { recursive: true });
+
+    const result4 = await detect(tempDir);
+    assert.ok(result4.languages.includes('Swift'));
+    assert.strictEqual(result4.packageManager, 'swift');
+    assert.ok(result4.frameworks.includes('Xcode'));
+    assert.strictEqual(result4.meta.swift.xcodeProjects[0], 'SampleApp.xcodeproj');
+    assert.strictEqual(result4.meta.swift.xcodeScheme, 'SampleApp');
+    console.log('✓ detect Xcode project passed');
 
     console.log('\n🎉 All tests passed successfully!');
   } catch (err) {

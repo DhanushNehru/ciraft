@@ -7,14 +7,14 @@
 
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { basename, extname, join } from 'node:path';
 import { glob } from 'glob';
 import log from './utils/logger.js';
 
 /**
  * @typedef {Object} DetectionResult
  * @property {string[]} languages - Detected programming languages.
- * @property {string|null} packageManager - Primary package manager (npm, yarn, pnpm, pip, poetry, cargo, go).
+ * @property {string|null} packageManager - Primary package manager (npm, yarn, pnpm, pip, poetry, cargo, go, swift).
  * @property {string[]} frameworks - Detected frameworks (React, Next.js, Express, Django, etc.).
  * @property {boolean} hasDocker - Whether Dockerfile or docker-compose is present.
  * @property {boolean} hasDockerCompose - Whether docker-compose.yml is present.
@@ -337,6 +337,52 @@ async function detectRust(cwd) {
 }
 
 /**
+ * Detect Swift, iOS, or macOS project details.
+ * @param {string} cwd - Project root.
+ * @returns {Promise<Object|null>} Swift detection info.
+ */
+async function detectSwift(cwd) {
+  const hasPackageSwift = existsSync(join(cwd, 'Package.swift'));
+  const xcodeProjects = await glob('**/*.xcodeproj', {
+    cwd,
+    maxDepth: 4,
+    ignore: ['**/.build/**', '**/DerivedData/**', '**/Pods/**'],
+  });
+  const xcodeWorkspaces = await glob('**/*.xcworkspace', {
+    cwd,
+    maxDepth: 4,
+    ignore: ['**/.build/**', '**/DerivedData/**', '**/Pods/**'],
+  });
+
+  if (!hasPackageSwift && xcodeProjects.length === 0 && xcodeWorkspaces.length === 0) {
+    return null;
+  }
+
+  const schemeSource = xcodeWorkspaces[0] || xcodeProjects[0] || 'Package.swift';
+  const schemeName = basename(schemeSource, extname(schemeSource));
+  const testFiles = await glob('**/*Tests.swift', {
+    cwd,
+    maxDepth: 6,
+    ignore: ['**/.build/**', '**/DerivedData/**', '**/Pods/**'],
+  });
+
+  const frameworks = [];
+  if (hasPackageSwift) frameworks.push('Swift Package Manager');
+  if (xcodeProjects.length > 0 || xcodeWorkspaces.length > 0) frameworks.push('Xcode');
+
+  return {
+    language: 'Swift',
+    packageManager: 'swift',
+    frameworks,
+    hasTests: hasPackageSwift || xcodeProjects.length > 0 || xcodeWorkspaces.length > 0 || testFiles.length > 0,
+    hasPackageSwift,
+    xcodeProjects,
+    xcodeWorkspaces,
+    xcodeScheme: schemeName,
+  };
+}
+
+/**
  * Detect Docker usage in the project.
  * @param {string} cwd - Project root.
  * @returns {Promise<Object|null>} Docker detection info.
@@ -414,11 +460,12 @@ export async function detect(cwd = process.cwd()) {
   };
 
   // Run all detectors concurrently
-  const [node, python, goLang, rust, docker] = await Promise.all([
+  const [node, python, goLang, rust, swift, docker] = await Promise.all([
     detectNode(cwd),
     detectPython(cwd),
     detectGo(cwd),
     detectRust(cwd),
+    detectSwift(cwd),
     detectDocker(cwd),
   ]);
 
@@ -464,6 +511,20 @@ export async function detect(cwd = process.cwd()) {
     result.hasTests = result.hasTests || rust.hasTests;
     result.rustEdition = rust.rustEdition;
     result.meta.rustWorkspace = rust.isWorkspace;
+  }
+
+  // Merge Swift results
+  if (swift) {
+    result.languages.push(swift.language);
+    if (!result.packageManager) result.packageManager = swift.packageManager;
+    result.frameworks.push(...swift.frameworks);
+    result.hasTests = result.hasTests || swift.hasTests;
+    result.meta.swift = {
+      hasPackageSwift: swift.hasPackageSwift,
+      xcodeProjects: swift.xcodeProjects,
+      xcodeWorkspaces: swift.xcodeWorkspaces,
+      xcodeScheme: swift.xcodeScheme,
+    };
   }
 
   // Merge Docker results
