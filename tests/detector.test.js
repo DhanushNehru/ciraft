@@ -59,6 +59,40 @@ async function runTests() {
     assert.strictEqual(result2.hasTests, true);
     console.log('✓ detect Python project passed');
 
+    console.log('Running test: detect Flutter project');
+    fs.rmSync(tempDir, { recursive: true, force: true });
+    fs.mkdirSync(tempDir);
+
+    fs.writeFileSync(
+      path.join(tempDir, 'pubspec.yaml'),
+      `name: test_flutter_app
+description: A test Flutter project.
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+`,
+      'utf8'
+    );
+    fs.mkdirSync(path.join(tempDir, 'android'));
+    fs.mkdirSync(path.join(tempDir, 'ios'));
+    fs.mkdirSync(path.join(tempDir, 'test'));
+
+    const result3 = await detect(tempDir);
+    assert.ok(result3.languages.includes('Flutter'));
+    assert.strictEqual(result3.packageManager, 'flutter');
+    assert.ok(result3.frameworks.includes('Flutter'));
+    assert.strictEqual(result3.hasTests, true);
+    assert.strictEqual(result3.hasLinting, true);
+    assert.ok(result3.meta.flutterPlatforms.includes('android'));
+    assert.ok(result3.meta.flutterPlatforms.includes('ios'));
+    console.log('✓ detect Flutter project passed');
+
     console.log('\n🎉 All tests passed successfully!');
   } catch (err) {
     console.error('\n❌ Test failed:', err);

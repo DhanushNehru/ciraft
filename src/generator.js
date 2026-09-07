@@ -83,6 +83,7 @@ function getInstallCommand(pm) {
     flit: 'flit install',
     cargo: 'cargo build',
     go: 'go mod download',
+    flutter: 'flutter pub get',
   };
   return commands[pm] || 'npm ci';
 }
@@ -105,6 +106,7 @@ function getTestCommand(pm, lang) {
     pdm: 'pdm run pytest',
     cargo: 'cargo test',
     go: 'go test ./...',
+    flutter: 'flutter test',
   };
   return commands[pm] || 'npm test';
 }
@@ -125,6 +127,7 @@ function getLintCommand(pm) {
     poetry: 'poetry run ruff check .',
     cargo: 'cargo clippy -- -D warnings',
     go: 'golangci-lint run',
+    flutter: 'flutter analyze',
   };
   return commands[pm] || 'npm run lint';
 }
@@ -142,6 +145,7 @@ function getBuildCommand(pm) {
     bun: 'bun run build',
     cargo: 'cargo build --release',
     go: 'go build ./...',
+    flutter: 'flutter build apk',
   };
   return commands[pm] || '';
 }
@@ -159,6 +163,7 @@ function getCacheKey(pm) {
     pip: 'pip',
     pipenv: 'pipenv',
     poetry: 'poetry',
+    flutter: 'flutter',
   };
   return keys[pm] || pm;
 }
@@ -188,6 +193,7 @@ function resolveTemplateName(detection, config) {
     'python': `${prefix}-python`,
     'go': `${prefix}-go`,
     'rust': `${prefix}-rust`,
+    'flutter': `${prefix}-flutter`,
   };
 
   return templateMap[lang] || `${prefix}-node`;
