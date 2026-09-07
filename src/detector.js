@@ -337,6 +337,48 @@ async function detectRust(cwd) {
 }
 
 /**
+ * Detect Flutter project details.
+ * @param {string} cwd - Project root.
+ * @returns {Promise<Object|null>} Flutter detection info.
+ */
+async function detectFlutter(cwd) {
+  const pubspecPath = join(cwd, 'pubspec.yaml');
+  if (!existsSync(pubspecPath)) return null;
+
+  const content = await readText(pubspecPath);
+  if (!content) return null;
+
+  const isFlutter = /sdk:\s*flutter/i.test(content) || /flutter:\s*$/m.test(content) || /flutter_test:\s*$/m.test(content);
+  if (!isFlutter) return null;
+
+  const result = {
+    language: 'Flutter',
+    packageManager: 'flutter',
+    frameworks: ['Flutter'],
+    hasTests: false,
+    hasLinting: false,
+    flutterPlatforms: [],
+  };
+
+  if (existsSync(join(cwd, 'android'))) result.flutterPlatforms.push('android');
+  if (existsSync(join(cwd, 'ios'))) result.flutterPlatforms.push('ios');
+  if (existsSync(join(cwd, 'web'))) result.flutterPlatforms.push('web');
+  if (existsSync(join(cwd, 'macos'))) result.flutterPlatforms.push('macos');
+  if (existsSync(join(cwd, 'windows'))) result.flutterPlatforms.push('windows');
+  if (existsSync(join(cwd, 'linux'))) result.flutterPlatforms.push('linux');
+
+  if (existsSync(join(cwd, 'test')) || content.includes('flutter_test')) {
+    result.hasTests = true;
+  }
+
+  if (content.includes('flutter_lints') || existsSync(join(cwd, 'analysis_options.yaml'))) {
+    result.hasLinting = true;
+  }
+
+  return result;
+}
+
+/**
  * Detect Docker usage in the project.
  * @param {string} cwd - Project root.
  * @returns {Promise<Object|null>} Docker detection info.
@@ -414,12 +456,13 @@ export async function detect(cwd = process.cwd()) {
   };
 
   // Run all detectors concurrently
-  const [node, python, goLang, rust, docker] = await Promise.all([
+  const [node, python, goLang, rust, docker, flutter] = await Promise.all([
     detectNode(cwd),
     detectPython(cwd),
     detectGo(cwd),
     detectRust(cwd),
     detectDocker(cwd),
+    detectFlutter(cwd),
   ]);
 
   const deploy = detectDeploy(cwd);
@@ -464,6 +507,16 @@ export async function detect(cwd = process.cwd()) {
     result.hasTests = result.hasTests || rust.hasTests;
     result.rustEdition = rust.rustEdition;
     result.meta.rustWorkspace = rust.isWorkspace;
+  }
+
+  // Merge Flutter results
+  if (flutter) {
+    result.languages.push(flutter.language);
+    if (!result.packageManager) result.packageManager = flutter.packageManager;
+    result.frameworks.push(...flutter.frameworks);
+    result.hasTests = result.hasTests || flutter.hasTests;
+    result.hasLinting = result.hasLinting || flutter.hasLinting;
+    result.meta.flutterPlatforms = flutter.flutterPlatforms;
   }
 
   // Merge Docker results
